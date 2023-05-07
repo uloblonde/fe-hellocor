@@ -38,7 +38,7 @@ const Consultation = () => {
               </Col>
               <Col sm="auto">{item.liveConsul}</Col>
             </Row>
-            <hr />
+            
             <Row className="mx-5">
               <Col md={1}>
                 <img className="nav-profile-image w-100 mt-1" alt="profile" src={tests} />
