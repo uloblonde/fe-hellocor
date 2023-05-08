@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import logo from "../assets/icon.png";
+import logo from "../assets/logonavbar.png";
 import Register from "./modal/Register";
 import Login from "./modal/Login";
 import profile from "../assets/Profilerounded.png";
