@@ -14,6 +14,8 @@ import Reservation from "./component/patient/Reservation";
 import Consultation from "./component/patient/Consultation";
 import Addarticle from "./component/doctor/Addarticle";
 import Table from "./component/doctor/Table";
+import Mainpage from "./component/pages/Mainpage";
+import Detailarticle from "./component/patient/Detailarticle";
 
 function App() {
   const [isLogin, setLogin] = useState(false);
@@ -62,19 +64,18 @@ function App() {
     <React.Fragment>
       <Navbar />
       <Routes>
-        <Route exact path="/" element={<Landingpage />} />
+        <Route exact path="/" element={<Mainpage />} />
         <Route element={<PrivateRouteLogin />}>
           <Route element={<PrivateRoutePatient />}>
-            <Route exact path="/" element={<Landingpage />} />
-            <Route exact path="/Profile" element={<Profile/>} />
-            <Route exact path="/Consultation" element={<Reservation/>} />
-            <Route exact path="/MyConsultation" element={<Consultation/>} />
+            <Route exact path="/Article/:id" element={<Detailarticle />} />
+            <Route exact path="/Profile" element={<Profile />} />
+            <Route exact path="/Consultation" element={<Reservation />} />
+            <Route exact path="/MyConsultation" element={<Consultation />} />
           </Route>
           <Route element={<PrivateRouteDoctor />}>
-          <Route exact path="/" element={<Landingpage />} />
-          <Route exact path="/Profiles" element={<Profile/>} />
-          <Route exact path="/Addarticle" element={<Addarticle/>} />
-          <Route exact path="/Table" element={<Table/>} />
+            <Route exact path="/Profiles" element={<Profile />} />
+            <Route exact path="/Addarticle" element={<Addarticle />} />
+            <Route exact path="/Table" element={<Table />} />
           </Route>
         </Route>
       </Routes>

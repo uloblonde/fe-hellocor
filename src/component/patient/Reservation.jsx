@@ -47,7 +47,7 @@ const Reservation = () => {
       console.log("letsgoo bisa",response)
       MySwal.fire({
         title: <strong>Yeay</strong>,
-        text: "Anda Telah Login",
+        text: "Consultasi anda telah terkirim",
         icon: "success",
       });
       navigate("/MyConsultation")
@@ -57,7 +57,7 @@ const Reservation = () => {
       MySwal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Email atau Password Anda Salah",
+        text: "Consultasi anda gagal",
       });
     }
     

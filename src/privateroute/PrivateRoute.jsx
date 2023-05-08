@@ -24,7 +24,7 @@ export const PrivateRouteDoctor = () =>{
     const [state] = useContext(UserContext)
 
     if (state.user.role !== "doctor"){
-        return <Navigate to={"/"}/>
+        return <Navigate to={"/Table"}/>
     }
     return <Outlet/>
 }

@@ -7,6 +7,8 @@ import { useMutation, useQuery } from "react-query";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { API } from "../../config/api";
+import bulat from '../../assets/vector/bulat1.png'
+import bulat2 from '../../assets/vector/bulat2.png'
 
 function Responsedoctor({asem},props) {
 
@@ -42,7 +44,9 @@ function Responsedoctor({asem},props) {
       formData.set("consulLink", form.consulLink);
 
       const response = await API.post("/response/"+asem.id,formData,config)
+      const resp = await API.patch("/consultation/" + asem.id);
       console.log("letsgooo",response)
+      console.log("gagal",resp)
     }catch(error){
       console.log("sad kali",error)
     }
@@ -56,22 +60,22 @@ function Responsedoctor({asem},props) {
 
       <Modal show={show} onHide={()=>setShow(false)} size="lg">
         <Modal.Body>
-          <Row>
-            <Col md={8}>
+          <Row className="gap-5">
+            <Col md={7} className="ms-3">
               <h5 className="text-bold">{asem.subject}</h5>
               <p>{asem.description}</p>
             </Col>
             <Col md={4}>
               <div>
                 <span className="text-bold">
-                  <img alt="calendar" style={{ width: "20px" }} /> Date of complaint
+                  <img src={bulat} style={{ width: "20px" }} /> Date of complaint
                 </span>
                 <br />
                 <span className="text-gray">16 Mei 2021</span>
               </div>
               <div className="mt-3">
                 <span className="text-bold">
-                  <img alt="calendar" style={{ width: "20px" }} /> Live Consultation Request
+                  <img src={bulat2}  style={{ width: "20px" }} /> Live Consultation Request
                 </span>
                 <br />
                 <span className="text-gray">18 Mei 2021</span>
@@ -87,7 +91,7 @@ function Responsedoctor({asem},props) {
                 <th>Weight</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody >
               <tr>
                 <td>{asem.User.FullName}</td>
                 <td>{asem.age}</td>
@@ -102,14 +106,17 @@ function Responsedoctor({asem},props) {
               <Form.Control as="textarea" style={{ height: "100px" }} className="bg-input-form" name="responseText" onChange={handleOnChange} />
             </Form.Group>
             <Row>
-              <Col md={9}>
+              <Col md={6}>
                 <Form.Group className="mb-3" controlId="formBasicLink">
-                  <Form.Control type="text" className="bg-input-form" name="consulLink" placeholder="Paste Your Meet Conversation Link Here..." onChange={handleOnChange}/>
+                  <Form.Control type="text" className="bg-input-form" name="consulLink" placeholder="Ur Link Lmfao" onChange={handleOnChange}/>
                 </Form.Group>
               </Col>
-              <Col md={3}>
-                <div className="d-flex justify-content-center" style={{ textDecoration: "none" }}>
-                  <Button type="submit" className="text-bold" style={{ border: "none", color: "white", borderRadius: "10px", padding: "8px 65px", backgroundColor: "#0ACF83" }}>
+              <Col md={5}>
+                <div className="d-flex justify-content-between ms-5" style={{ textDecoration: "none" }}>
+                  <Button onClick={()=>setShow(false)} className="text-bold bg-danger" style={{ border: "none", color: "white", borderRadius: "10px", padding: "8px 30px" }}>
+                    Cancel
+                  </Button>
+                  <Button type="submit" className="text-bold bg-success" style={{ border: "none", color: "white", borderRadius: "10px", padding: "8px 30px" }}>
                     Accept
                   </Button>
                 </div>

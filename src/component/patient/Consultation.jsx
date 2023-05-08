@@ -11,6 +11,8 @@ const Consultation = () => {
 
   const id = state.user.id;
 
+  console.log(state);
+
   console.log(id);
 
   const { data: consul } = useQuery("consultationCache", async () => {
@@ -19,12 +21,20 @@ const Consultation = () => {
     return response.data.data;
   });
 
+  const responsePromises = consul?.map(async (item) => await API.get(`/responseku/${item.id}`).then((response) => response.data.data));
+
+  const { data: responses } = useQuery(["responsesCache", consul], async () => {
+    const response = await Promise.all(responsePromises);
+    console.log(response, "kontol");
+    return response;
+  });
+
   return (
     <Container className="mt-4">
       <h2 className="mb-3" style={{ color: "#FF6185" }}>
         Consultation
       </h2>
-      {consul?.map((item,key) => (
+      {consul?.map((item, key) => (
         <Card key={key} className="shadow w-75 m-auto my-4">
           <Card.Body>
             <Row>
@@ -38,20 +48,20 @@ const Consultation = () => {
               </Col>
               <Col sm="auto">{item.liveConsul}</Col>
             </Row>
-            
             <Row className="mx-5">
               <Col md={1}>
                 <img className="nav-profile-image w-100 mt-1" alt="profile" src={tests} />
               </Col>
-              <Col md={11}>
-                <p className="text-gray">Hi hari ini adalah jadwal konsultasi kamu, silahkan klik link berikut untuk melakukan konsultasi secara langsung kepada saya :</p>
-                <p className="text-gray">Dr. Muhammad Rizki </p>
-              </Col>
+              {responses?.map((item) => {
+                return (
+                  <Col md={11}>
+                    <p className="text-gray">{item.responseText }<a href={item.consulLink}>here</a></p>
+                    <p className="text-gray">dr. {item.User.fullName}</p>
+                  </Col>
+                );
+              })}
             </Row>
-            :
-            <Row className="mx-5">
-              <h4 className="text-center text-gray text-bold">Waiting For Reply</h4>
-            </Row>
+            
           </Card.Body>
         </Card>
       ))}

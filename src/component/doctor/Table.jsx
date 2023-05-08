@@ -66,12 +66,12 @@ export default function Table() {
                     <th scope="row">{key + 1}</th>
                     <td>{item.User.FullName}</td>
                     <td>{item.subject}</td>
-                    <td>{item.CreatedAt}</td>
+                    <td>{item.CreatedAt.split("T")[0]}</td>
                     <td>
                       {item.Status === "waiting" ? (
                         <td className="text-warning">Waiting Approve Consultation Live</td>
                       ) : item.Status === "success" ? (
-                        <td className="text-success">Live Consultation Approved</td>
+                        <td className="text-success">Waiting Live Consultation</td>
                       ) : (
                         <td className="text-danger">Cancel</td>
                       )}
