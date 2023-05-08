@@ -1,5 +1,5 @@
 import icprofile from '../../assets/vector/Profile.png'
-import icmail from '../../assets/vector/mail.png'
+import icmail from '../../assets/vector/surat.png'
 import ictlp from '../../assets/vector/Tlp.png'
 import iclocation from '../../assets/vector/Location.png'
 import icgender from '../../assets/vector/Gender.png'
