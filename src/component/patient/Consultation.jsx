@@ -11,23 +11,30 @@ const Consultation = () => {
 
   const id = state.user.id;
 
-  console.log(state);
-
-  console.log(id);
 
   const { data: consul } = useQuery("consultationCache", async () => {
     const response = await API.get(`/consultings/${id}`);
-    console.log("babi", response.data.data);
+    console.log(response.data.data);
     return response.data.data;
   });
 
-  const responsePromises = consul?.map(async (item) => await API.get(`/responseku/${item.id}`).then((response) => response.data.data));
-
-  const { data: responses } = useQuery(["responsesCache", consul], async () => {
-    const response = await Promise.all(responsePromises);
-    console.log(response, "kontol");
-    return response;
+  const { data: responses } = useQuery("responseChace", async () => {
+    const response = await API.get(`/responseall`);
+    return response.data.data;
   });
+  consul?.map((item) => {
+    console.log(
+      "tesss",
+      responses?.filter((res) => res.ConsulId === item.id)
+    );
+  });
+
+  // const responsePromises = consul?.map(async (item) => await API.get(`/responseku/${item.id}`).then((response) => response.data.data));
+
+  // const { data: responses } = useQuery(["responsesCache", consul], async () => {
+  //   const response = await Promise.all(responsePromises);
+  //   return response;
+  // });
 
   return (
     <Container className="mt-4">
@@ -52,16 +59,17 @@ const Consultation = () => {
               <Col md={1}>
                 <img className="nav-profile-image w-100 mt-1" alt="profile" src={tests} />
               </Col>
-              {responses?.map((item) => {
-                return (
-                  <Col md={11}>
-                    <p className="text-gray">{item.responseText }<a href={item.consulLink}>here</a></p>
-                    <p className="text-gray">dr. {item.User.fullName}</p>
+              {responses?.filter((res) => res.ConsulId === item.id)
+                .map((itemresponse) => (
+                  <Col md={11} key={itemresponse.ID}>
+                    <p className="text-gray">
+                      {itemresponse.responseText}
+                      <a href={itemresponse.consulLink}>here</a>
+                    </p>
+                    <p className="text-gray">dr. {itemresponse.User.fullName}</p>
                   </Col>
-                );
-              })}
+                ))}
             </Row>
-            
           </Card.Body>
         </Card>
       ))}
