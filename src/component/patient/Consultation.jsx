@@ -11,7 +11,6 @@ const Consultation = () => {
 
   const id = state.user.id;
 
-
   const { data: consul } = useQuery("consultationCache", async () => {
     const response = await API.get(`/consultings/${id}`);
     console.log(response.data.data);
@@ -29,13 +28,6 @@ const Consultation = () => {
     );
   });
 
-  // const responsePromises = consul?.map(async (item) => await API.get(`/responseku/${item.id}`).then((response) => response.data.data));
-
-  // const { data: responses } = useQuery(["responsesCache", consul], async () => {
-  //   const response = await Promise.all(responsePromises);
-  //   return response;
-  // });
-
   return (
     <Container className="mt-4">
       <h2 className="mb-3" style={{ color: "#FF6185" }}>
@@ -50,25 +42,39 @@ const Consultation = () => {
               </Col>
               <Col>
                 <h5>{item.subject}</h5>
-                <span>{item.bornDate}</span>
+                <span>Umur : {item.age}</span>
                 <p>Keluhan: {item.description}</p>
               </Col>
-              <Col sm="auto">{item.liveConsul}</Col>
+              <Col sm="auto">Tanggal Konsultasi : {item.liveConsul}</Col>
+            </Row>
+            <Row>
+              <Col>
+              <hr style={{ width: '100%', height: '1px', backgroundColor: 'black' }} />
+              </Col>
             </Row>
             <Row className="mx-5">
-              <Col md={1}>
-                <img className="nav-profile-image w-100 mt-1" alt="profile" src={tests} />
-              </Col>
-              {responses?.filter((res) => res.ConsulId === item.id)
-                .map((itemresponse) => (
-                  <Col md={11} key={itemresponse.ID}>
-                    <p className="text-gray">
-                      {itemresponse.responseText}
-                      <a href={itemresponse.consulLink}>here</a>
-                    </p>
-                    <p className="text-gray">dr. {itemresponse.User.fullName}</p>
-                  </Col>
-                ))}
+              {responses && responses.filter((res) => res.ConsulId === item.id).length > 0 ? (
+                responses
+                  .filter((res) => res.ConsulId === item.id)
+                  .map((itemresponse) => (
+                    <>
+                      <Col md={1}>
+                        <img className="nav-profile-image w-100 mt-1" alt="profile" src={tests} />
+                      </Col>
+                      <Col md={11} key={itemresponse.ID}>
+                        <p className="text-gray">
+                          {itemresponse.responseText}
+                          <a href={itemresponse.consulLink}>here</a>
+                        </p>
+                        <p className="text-gray">dr. {itemresponse.User.fullName}</p>
+                      </Col>
+                    </>
+                  ))
+              ) : (
+                <div>
+                  <h4 className="text-center">Waiting For Response</h4>
+                </div>
+              )}
             </Row>
           </Card.Body>
         </Card>
