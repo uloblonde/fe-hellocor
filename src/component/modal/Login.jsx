@@ -90,8 +90,8 @@ function Login(props) {
                 props.setRegis(true);
                 iniClose();
               }}
-              className="text-decoration-none text-secondary fw-bold ms-2"
-              href=""
+              className="text-decoration-none text-secondary fw-bold ms-2 pe-auto"
+              style={{cursor:"pointer"}}
             >
               Here
             </a>
@@ -101,7 +101,5 @@ function Login(props) {
     </>
   );
 }
-
-// onClick={() =>  props.sadge(true) }
 
 export default Login;

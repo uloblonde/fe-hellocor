@@ -14,10 +14,6 @@ const Profile = () => {
 
   const [state] = useContext(UserContext)
 
-  console.log(state.user.id)
-
-  
-  
     return (
     <div className="mw-100" style={{ height: "600px"}}>
       <div style={{ height: "300px", width: "100%", paddingTop: "50px" }}>
@@ -61,22 +57,11 @@ const Profile = () => {
                     <p className="text-secondary" style={{fontSize:"9pt"}}>Mobile Phone</p>
                   </div>
                 </div>
-                <div className="d-flex mt-3" style={{ height: "40px"}}>
-                  <img src={iccontact} style={{ width: "30px", height: "30px", marginTop: "7px"}} />
-                  <div className="ms-3">
-                    <h7 className="text-dark">{state.user.status}</h7>
-                    <p className="text-secondary" style={{fontSize:"9pt"}}>Status</p>
-                  </div>
-                </div>
               </div>
               <div className="d-flex flex-column align-items-center">
                 {state.user.role == "doctor"?  ( <img className="rounded mt-4 w-75" src={doctor} />
                 ):(
                 <img className="rounded mt-4 w-75" src={iniprofile} />)}
-                
-                <button className="btn mt-4 fw-bold text-light p-2 w-75 " style={{ background: "#FF6185" }}>
-                  Change Photo Profile
-                </button>
               </div>
             </div>
           </div>

@@ -1,20 +1,18 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../context/userContext";
+
 import { useQuery } from "react-query";
 import { API } from "../../config/api";
 import search from "../../assets/vector/search.png";
 import Swal from "sweetalert2";
 import Responsedoctor from "../modal/Responsedoctor";
+import { UserContext } from "../context/UserContext";
 
 export default function Table() {
-  const [state] = useState(UserContext);
+  const [state] = useState(UserContext)
   const [response, setResponse] = useState(false);
-  const [idconsul, setIdConsul] = useState(0);
-  const [consultations, setConsultations] = useState([]);
 
   const { data: consul } = useQuery("ResponseChache", async () => {
     const response = await API.get("/consultings");
-    console.log("Babi ", response.data.data);
     return response.data.data;
   });
 
@@ -41,10 +39,10 @@ export default function Table() {
   }
 
   return (
-    <div className=" py-2">
+    <div className=" py-5">
       <style>ds</style>
       <div className="container">
-        <h3 className="pt-5 text-center" style={{ color: "#FF6185" }}>
+        <h3 className="pt-1 text-center" style={{ color: "#FF6185" }}>
           Reservasi Data
         </h3>
         <div className="pt-4">

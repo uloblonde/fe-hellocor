@@ -7,31 +7,29 @@ import { useMutation, useQuery } from "react-query";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { API } from "../../config/api";
-import bulat from '../../assets/vector/bulat1.png'
-import bulat2 from '../../assets/vector/bulat2.png'
+import bulat from "../../assets/vector/bulat1.png";
+import bulat2 from "../../assets/vector/bulat2.png";
 
-function Responsedoctor({asem},props) {
-
+function Responsedoctor({ asem }, props) {
   const MySwal = withReactContent(Swal);
-  const [show,setShow] = useState(false)
+  const [show, setShow] = useState(false);
   const [form, setForm] = useState({
-    responseText:"",
-    consulLink:"",
-  })
+    responseText: "",
+    consulLink: "",
+  });
 
-  const handleOnChange =(e)=>{
-   setForm({
-    ...form,
-    [e.target.name]:e.target.value,
-   })
-  }
-  
-  console.log(asem.id)
+  const handleOnChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
 
+  console.log(asem.id);
 
-  const handleOnSubmit = useMutation(async(e)=>{
-    try{
-      e.preventDefault()
+  const handleOnSubmit = useMutation(async (e) => {
+    try {
+      e.preventDefault();
 
       const config = {
         headers: {
@@ -39,26 +37,38 @@ function Responsedoctor({asem},props) {
         },
       };
 
-      const formData = new FormData()
+      const formData = new FormData();
       formData.set("responseText", form.responseText);
       formData.set("consulLink", form.consulLink);
 
-      const response = await API.post("/response/"+asem.id,formData,config)
+      const response = await API.post("/response/" + asem.id, formData, config);
       const resp = await API.patch("/consultation/" + asem.id);
-      console.log("letsgooo",response)
-      console.log("gagal",resp)
-    }catch(error){
-      console.log("sad kali",error)
+
+      MySwal.fire({
+        title: <strong>Yeay</strong>,
+        text: "Response Anda terkirim",
+        icon: "success",
+      });
+
+      window.location.reload()
+    } catch (error) {
+      MySwal.fire({
+        title: <strong>Yeay</strong>,
+        text: "Response Gagal",
+        icon: "error",
+      });
+
+      console.log("sad kali", error);
     }
-  })
+  });
 
   return (
     <>
-      <button onClick={()=>setShow(true)} type="button" className="logres btn btn-light btn-sm me-2  fw-bold" style={{ borderColor: "#FF6185", color: "#FF6185" }}>
+      <button onClick={() => setShow(true)} type="button" className="logres btn btn-light btn-sm me-2  fw-bold" style={{ borderColor: "#FF6185", color: "#FF6185" }}>
         Response
       </button>
 
-      <Modal show={show} onHide={()=>setShow(false)} size="lg">
+      <Modal show={show} onHide={() => setShow(false)} size="lg">
         <Modal.Body>
           <Row className="gap-5">
             <Col md={7} className="ms-3">
@@ -75,7 +85,7 @@ function Responsedoctor({asem},props) {
               </div>
               <div className="mt-3">
                 <span className="text-bold">
-                  <img src={bulat2}  style={{ width: "20px" }} /> Live Consultation Request
+                  <img src={bulat2} style={{ width: "20px" }} /> Live Consultation Request
                 </span>
                 <br />
                 <span className="text-gray">18 Mei 2021</span>
@@ -91,7 +101,7 @@ function Responsedoctor({asem},props) {
                 <th>Weight</th>
               </tr>
             </thead>
-            <tbody >
+            <tbody>
               <tr>
                 <td>{asem.User.FullName}</td>
                 <td>{asem.age}</td>
@@ -108,12 +118,12 @@ function Responsedoctor({asem},props) {
             <Row>
               <Col md={6}>
                 <Form.Group className="mb-3" controlId="formBasicLink">
-                  <Form.Control type="text" className="bg-input-form" name="consulLink" placeholder="Ur Link Lmfao" onChange={handleOnChange}/>
+                  <Form.Control type="text" className="bg-input-form" name="consulLink" placeholder="Ur Link Lmfao" onChange={handleOnChange} />
                 </Form.Group>
               </Col>
               <Col md={5}>
                 <div className="d-flex justify-content-between ms-5" style={{ textDecoration: "none" }}>
-                  <Button onClick={()=>setShow(false)} className="text-bold bg-danger" style={{ border: "none", color: "white", borderRadius: "10px", padding: "8px 30px" }}>
+                  <Button onClick={() => setShow(false)} className="text-bold bg-danger" style={{ border: "none", color: "white", borderRadius: "10px", padding: "8px 30px" }}>
                     Cancel
                   </Button>
                   <Button type="submit" className="text-bold bg-success" style={{ border: "none", color: "white", borderRadius: "10px", padding: "8px 30px" }}>

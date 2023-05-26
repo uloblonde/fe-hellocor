@@ -1,4 +1,3 @@
-
 import { Alert } from "bootstrap";
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
@@ -10,6 +9,8 @@ import { API } from "../../config/api";
 
 function Register(props) {
   const MySwal = withReactContent(Swal);
+  const thisShow = () => props.setRegis(true);
+  const thisClose = () => props.setRegis(false);
 
   const [message, setMessage] = useState(null);
   const [regiss, setRegiss] = useState({
@@ -17,12 +18,12 @@ function Register(props) {
     password: "",
     fullname: "",
     gender: "",
-    role:"",
+    role: "",
     phone: "",
     address: "",
   });
 
-  const { email, password, fullname, gender,role, phone, address } = regiss;
+  const { email, password, fullname, gender, role, phone, address } = regiss;
 
   const handleOnSubmit = useMutation(async (e) => {
     try {
@@ -59,9 +60,6 @@ function Register(props) {
     });
   };
 
-  const thisShow = () => props.setRegis(true);
-  const thisClose = () => props.setRegis(false);
-
   return (
     <>
       <button onClick={thisShow} type="button" className="logres btn btn-light btn-sm me-2  fw-bold" style={{ borderColor: "#FF6185", color: "#FF6185" }}>
@@ -79,7 +77,7 @@ function Register(props) {
             </Form.Group>
             <Form.Group className="" controlId="passId">
               <Form.Label className="ms-5 mb-0">Password</Form.Label>
-              <input  name="password" id="password" value={password} onChange={handleChange} className="border border-light bg-secondary border-3 text-light ms-5 w-100 rounded p-2" type="password" placeholder="Password" autoFocus />
+              <input name="password" id="password" value={password} onChange={handleChange} className="border border-light bg-secondary border-3 text-light ms-5 w-100 rounded p-2" type="password" placeholder="Password" autoFocus />
             </Form.Group>
             <Form.Group className="" controlId="fullnameId">
               <Form.Label className="ms-5 mb-0">Fullname</Form.Label>
@@ -87,20 +85,15 @@ function Register(props) {
             </Form.Group>
             <Form.Group className="" controlId="genderId">
               <Form.Label className="ms-5 mb-0">Gender</Form.Label>
-              <input  name="gender" id="gender" value={gender} onChange={handleChange} className="border border-light bg-secondary border-3 text-light ms-5 w-100 rounded p-2" type="text" placeholder="Gender" autoFocus />
+              <input name="gender" id="gender" value={gender} onChange={handleChange} className="border border-light bg-secondary border-3 text-light ms-5 w-100 rounded p-2" type="text" placeholder="Gender" autoFocus />
             </Form.Group>
             <Form.Group className="" controlId="role">
-            <Form.Label className="ms-5 my-1">Role</Form.Label>
-                    <Form.Select
-                        className="my-1 ms-5 bg-secondary text-light"
-                        type="text"
-                        name="role"
-                        value={role}
-                        onChange={handleChange}>
-                        <option value={"default"}>Select here...</option>
-                        <option value={"patient"}>Patient</option>
-                        <option value={"doctor"}>Doctor</option>
-                    </Form.Select>
+              <Form.Label className="ms-5 my-1">Role</Form.Label>
+              <Form.Select className="my-1 ms-5 bg-secondary text-light" type="text" name="role" value={role} onChange={handleChange}>
+                <option value={"default"}>Select here...</option>
+                <option value={"patient"}>Patient</option>
+                <option value={"doctor"}>Doctor</option>
+              </Form.Select>
             </Form.Group>
             <Form.Group className="" controlId="phoneId">
               <Form.Label className="ms-5 mb-0">Phone</Form.Label>
@@ -117,7 +110,7 @@ function Register(props) {
                   thisClose();
                   MySwal.fire({
                     icon: "success",
-                    title: "Oops...",
+                    title: "Yeay",
                     text: "Anda Telah Terdaftar Uhuyyy",
                   });
                 } else {
@@ -125,7 +118,7 @@ function Register(props) {
                   MySwal.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: "Yeee bodo diisi lah",
+                    text: "Pedanftaran gagal check kembali formnya",
                   });
                 }
               }}
@@ -144,8 +137,8 @@ function Register(props) {
                 props.setLgn(true);
                 thisClose();
               }}
-              className="text-decoration-none text-secondary fw-bold"
-              href=""
+              className="text-decoration-none text-secondary fw-bold pe-auto"
+              style={{cursor:"pointer"}}
             >
               Here
             </a>
