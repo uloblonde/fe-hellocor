@@ -5,10 +5,11 @@ import { API } from "../../config/api";
 import search from "../../assets/vector/search.png";
 import Swal from "sweetalert2";
 import Responsedoctor from "../modal/Responsedoctor";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../context/userContext";
+
 
 export default function Table() {
-  const [state] = useState(UserContext)
+  const [state] = useContext(UserContext)
   const [response, setResponse] = useState(false);
 
   const { data: consul } = useQuery("ResponseChache", async () => {
